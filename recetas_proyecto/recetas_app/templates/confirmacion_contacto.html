@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Contacto{% endblock %}
+{% block content %}
+<div class="card p-4">
+    <h1 class="card-title text-center">Gracias por contactarnos</h1>
+    <p class="card-text text-center">Tu mensaje ha sido enviado correctamente.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid gap-2">
+            <a href="{% url 'contacto' %}" class="btn btn-secondary mt-3">Volver a contacto</a>
+            <a href="{% url 'lista_recetas' %}" class="btn btn-secondary mt-3">Volver al inicio</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

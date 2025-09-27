@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Risotto de Champiñones{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Risotto de Champiñones</h1>
+        <p><strong>Ingredientes:</strong></p>
+        <p>
+            300g de arroz arbóreo<br>
+            200g de champiñones frescos<br>
+            1 cebolla pequeña<br>
+            1 litro de caldo de verduras<br>
+            100ml de vino blanco<br>
+            50g de mantequilla<br>
+            50g de queso Parmesano rallado<br>
+            2 cucharadas de aceite de oliva<br>
+            Sal y pimienta al gusto
+        </p>
+        <p><strong>Instrucciones:</strong></p>
+        <p>
+            1. En una cacerola, calienta el aceite de oliva y sofríe la cebolla picada hasta que esté transparente.<br>
+            2. Añade los champiñones en láminas y cocina hasta que suelten su agua.<br>
+            3. Agrega el arroz y remueve para que se impregne del sabor.<br>
+            4. Vierte el vino blanco y deja que se evapore el alcohol.<br>
+            5. Añade el caldo de verduras poco a poco, removiendo constantemente hasta que el arroz esté al dente.<br>
+            6. Fuera del fuego, mezcla con la mantequilla y el queso Parmesano. Rectifica la sal y pimienta. Sirve caliente.
+        </p>
+        <a href="{% url 'lista_recetas' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+    </div>
+    <div class="col-md-4 text-center">
+        {% load static %}
+        <img src="{% static 'images/risotto.jpg' %}" class="img-fluid rounded" alt="Risotto de Champiñones">
+    </div>
+</div>
+{% endblock %}
