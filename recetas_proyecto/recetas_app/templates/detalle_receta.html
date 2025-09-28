@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Detalle de Receta{% endblock %}
+{% block content %}
+{% if receta %}
+    <div class="card mb-4">
+        {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre }}">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{ receta.nombre }}</h2>
+            <h5>Ingredientes:</h5>
+            <p>{{ receta.ingredientes|linebreaks }}</p>
+            <h5>Instrucciones:</h5>
+            <p>{{ receta.instrucciones|linebreaks }}</p>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger">
+        La receta no existe.
+    </div>
+{% endif %}
+{% endblock %}

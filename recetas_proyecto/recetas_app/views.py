@@ -3,31 +3,34 @@ from django.views.generic import ListView
 from .models import Receta
 from .forms import ContactoForm
 
-# Esta vista se mantiene sin cambios.
+# Página de inicio: muestra las últimas recetas
+def inicio(request):
+    recetas = Receta.objects.order_by('-id')[:6]  # últimas 6 recetas
+    return render(request, 'inicio.html', {'recetas': recetas})
+
+# Página de recetas: lista todas las recetas
 class ListaRecetas(ListView):
     model = Receta
     template_name = 'lista_recetas.html'
     context_object_name = 'recetas'
 
-# Vistas de función estáticas para cada receta
-def carbonara(request):
-    return render(request, 'carbonara.html')
+# Página de detalle de receta
+def detalle_receta(request, receta_id):
+    receta = Receta.objects.filter(id=receta_id).first()
+    return render(request, 'detalle_receta.html', {'receta': receta})
 
-def risotto(request):
-    return render(request, 'risotto.html')
-
-def ensalada(request):
-    return render(request, 'ensalada.html')
-    
-# Vistas de contacto
+# Página de contacto
 def contacto(request):
+    mensaje = ''
     if request.method == 'POST':
         form = ContactoForm(request.POST)
         if form.is_valid():
-            return redirect('confirmacion_contacto') 
+            return redirect('confirmacion_contacto')
+        else:
+            mensaje = 'Por favor completa todos los campos correctamente.'
     else:
         form = ContactoForm()
-    return render(request, 'contacto.html', {'form': form})
-    
+    return render(request, 'contacto.html', {'form': form, 'mensaje': mensaje})
+
 def confirmacion_contacto(request):
     return render(request, 'confirmacion_contacto.html')

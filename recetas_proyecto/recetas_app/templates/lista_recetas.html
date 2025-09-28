@@ -1,68 +1,28 @@
 {% extends 'base.html' %}
-{% block title %}Inicio - Recetas{% endblock %}
-{% block content %}
 {% load static %}
-
-<div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">¡Bienvenido a Recetas Deliciosas!</h1>
-        <p class="col-md-8 fs-4">Descubre y explora una gran variedad de recetas de cocina.</p>
-    </div>
-</div>
-
-<!-- Hero o Jumbotron -->
-<div class="p-5 text-center bg-dark text-white"
-     style="background-image: url('{% get_static_prefix %}images/fondo.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 0.5rem;">
-    <div class="container py-5">
-        <h1 class="display-4 fw-bold mb-4">¡Descubre nuestras recetas!</h1>
-        <p class="col-lg-8 mx-auto fs-5 mb-4"
-        style="text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.8);">
-            En <strong>Recetas Deliciosas</strong>, te inspiramos a crear platos increíbles con ingredientes sencillos.
-            Desde clásicos italianos hasta recetas rápidas para el día a día, aquí encontrarás ideas para cada ocasión.
-            <span class="d-block mt-2">¡Explora y disfruta!</span>
-        </p>
-    </div>
-</div>
-
-<h2 class="mt-4 mb-3">Nuestras Recetas</h2>
+{% block title %}Recetas{% endblock %}
+{% block content %}
+<h2 class="mb-3">Todas las Recetas</h2>
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    <!-- Pasta Carbonara Clásica -->
+    {% for receta in recetas %}
     <div class="col">
         <div class="card h-100">
-            <img src="{% static 'images/carbonara.jpg' %}" class="card-img-top" alt="Pasta Carbonara Clásica">
+            {% if receta.imagen %}
+                <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.nombre }}">
+            {% else %}
+                <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Imagen por defecto">
+            {% endif %}
             <div class="card-body">
-                <h5 class="card-title">Pasta Carbonara Clásica</h5>
-                <p class="card-text">Una receta italiana tradicional, cremosa y deliciosa.</p>
-                <a href="{% url 'carbonara' %}" class="btn btn-primary">Ver Receta</a>
+                <h5 class="card-title">{{ receta.nombre }}</h5>
+                <p class="card-text">{{ receta.instrucciones|truncatewords:15 }}</p>
+                <a href="{% url 'detalle_receta' receta.id %}" class="btn btn-primary">Ver Receta</a>
             </div>
         </div>
     </div>
-
-    <!-- Risotto de Champiñones -->
+    {% empty %}
     <div class="col">
-        <div class="card h-100">
-            <img src="{% static 'images/risotto.jpg' %}" class="card-img-top" alt="Risotto de Champiñones">
-            <div class="card-body">
-                <h5 class="card-title">Risotto de Champiñones</h5>
-                <p class="card-text">Un plato reconfortante, ideal para cualquier ocasión.</p>
-                <a href="{% url 'risotto' %}" class="btn btn-primary">Ver Receta</a>
-            </div>
-        </div>
+        <p>No hay recetas disponibles.</p>
     </div>
-    
-    <!-- Ensalada César -->
-    <div class="col">
-        <div class="card h-100">
-            <img src="{% static 'images/ensalada.jpg' %}" class="card-img-top" alt="Ensalada César">
-            <div class="card-body">
-                <h5 class="card-title">Ensalada César</h5>
-                <p class="card-text">Fresca y crujiente, perfecta para un almuerzo ligero.</p>
-                <a href="{% url 'ensalada' %}" class="btn btn-primary">Ver Receta</a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

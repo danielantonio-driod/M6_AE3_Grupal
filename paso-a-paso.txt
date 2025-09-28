@@ -1,0 +1,69 @@
+INICIALIZACION DEL ENTORNO VIRTUAL, INSTALACIONES Y MIGRACIONES
+(NECESARIO CADA USUARIO DEBE HACERLO)
+
+python -m venv env
+env\Scripts\activate
+pip install django
+python.exe -m pip install --upgrade pip
+python -m pip install Pillow
+django-admin --version
+django-admin startproject recetas_proyecto
+cd recetas_proyecto
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+CREACION DE APP Y CONFIGURACIONES
+(SE REALIZA UNA UNICA VEZ)
+
+python manage.py startapp recetas_app
+
+Carpetas Nuevas:
+media (Path: M6_AE3_ABPRO\recetas_proyecto)
+static (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app)
+images (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\static)
+templates (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app)
+scripts (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app)
+
+
+Archivos Nuevos:
+carbonara.jpg (Path: M6_AE3_ABPRO\recetas_proyecto\media\)
+ensalada.jpg (Path: M6_AE3_ABPRO\recetas_proyecto\media\)
+risotto.jpg (Path: M6_AE3_ABPRO\recetas_proyecto\media\)
+fondo.jpg (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\static\images)
+base.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+confirmacion_contacto.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+contacto.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+detalle_receta.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+inicio.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+lista_recetas.html (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\templates)
+urls.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\)
+forms.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\)
+cargar_recetas.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\scripts)
+.gitignore (Path: M6_AE3_ABPRO\)
+
+Archivos Modificados:
+models.py () (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\)
+views.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_app\)
+settings.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_proyecto\)
+urls.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_proyecto\)
+admin.py (Path: M6_AE3_ABPRO\recetas_proyecto\recetas_proyecto\)
+
+python manage.py makemigrations
+python manage.py migrate
+
+CARGAR RECETAS INICIALES Y HACER CORRER EL SERVIDOR
+(NECESARIO CADA USUARIO DEBE HACERLO)
+
+python manage.py shell
+exec(open('recetas_app/scripts/cargar_recetas.py', encoding='utf-8').read())
+exit()
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+Ctrl + C
+deactivate
+
+Observaciones:
+Si no se ejecuta el script de la fila 59, la pagina se inicializa sin recetas
+Para agregar recetas nuevas se debe hacer desde \admin

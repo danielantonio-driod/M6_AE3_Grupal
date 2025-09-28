@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Contacto{% endblock %}
 {% block content %}
-<div class="card p-4">
-    <h1 class="card-title text-center">Contáctanos</h1>
-    <p class="card-text text-center">Envíanos un mensaje y te responderemos lo antes posible.</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary mt-3">Enviar Mensaje</button>
-            <a href="{% url 'lista_recetas' %}" class="btn btn-secondary mt-3">Volver al inicio</a>
-        </div>
-    </form>
-</div>
+<h2>Contacto</h2>
+{% if mensaje %}
+    <div class="alert alert-warning">{{ mensaje }}</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
 {% endblock %}
