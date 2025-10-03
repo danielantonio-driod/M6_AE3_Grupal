@@ -16,7 +16,7 @@ class ListaRecetas(ListView):
 
 # Página de detalle de receta
 def detalle_receta(request, receta_id):
-    receta = Receta.objects.filter(id=receta_id).first()
+    receta = get_object_or_404(Receta, id=receta_id)
     return render(request, 'detalle_receta.html', {'receta': receta})
 
 # Página de contacto
@@ -25,7 +25,11 @@ def contacto(request):
     if request.method == 'POST':
         form = ContactoForm(request.POST)
         if form.is_valid():
-            return redirect('confirmacion_contacto')
+            # Procesar el formulario
+            if form.save():
+                return redirect('confirmacion_contacto')
+            else:
+                mensaje = 'Hubo un error al enviar tu mensaje. Por favor intenta nuevamente.'
         else:
             mensaje = 'Por favor completa todos los campos correctamente.'
     else:
